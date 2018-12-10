@@ -1,8 +1,8 @@
 #!/usr/bin/env groovy
 
-def call( gitCommit ) {
+def call( Map myParams ) {
   echo "Executing checkJiraIssue"
-  echo "gitCommit" + "${gitCommit}"
+  echo "gitCommit" + myParams.gitCommit
   echo "GIT_COMMIT" + "${GIT_COMMIT}"
 
   def gitCommitMsg = sh(returnStdout: true, script:  'git log --oneline -1 ${GIT_COMMIT}')
