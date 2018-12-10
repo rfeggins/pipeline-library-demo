@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-def call( Map myParams ) {
+def call( ) {
   echo "Executing checkJiraIssue"
   echo "gitCommit" + myParams.gitCommit
   echo "GIT_COMMIT" + "${GIT_COMMIT}"
