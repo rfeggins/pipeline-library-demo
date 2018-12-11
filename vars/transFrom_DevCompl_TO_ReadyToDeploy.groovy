@@ -8,6 +8,8 @@
  * https://jenkins.io/doc/pipeline/steps/jira-steps/
  * https://github.com/jenkinsci/jira-steps-plugin
  *
+ * Example calling function
+ * transFrom_DevCompl_TO_ReadyToDeploy ([ pull_request_merged: 
  */
  
  
