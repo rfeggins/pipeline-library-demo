@@ -1,43 +1,39 @@
 
+def call (
+   jiraSiteName,
+   jiraID,
+   newJiraState
+   ) {
 
-/* Reference links
- *
- * https://jenkins.io/doc/pipeline/steps/
- *
- * JIRA Pipeline Steps Plugin Reference links
- * https://jenkins.io/doc/pipeline/steps/jira-steps/
- * https://github.com/jenkinsci/jira-steps-plugin
- *
- * Example calling function
- * transFrom_DevCompl_TO_ReadyToDeploy ([ pull_request_merged: 
- */
- 
- 
- def call (Map config) {
-  
   // config.pull_request_merged
   // config.ddtl_ID
-  // config.jiraSite 
+  // config.jiraSite
   // define local variables
   def transitionInput
   def trans_issue
-  
-  
+
+
   echo "##############################################################################"
-  echo "executing shared lib call to transFrom DevComplete to ReadyForQA
+  echo "executing shared lib call to transFrom DevComplete to ReadyForQA"
   echo "##############################################################################"
-  
-  transitionInput = [ transition: [ id: config.pull_request_merged ] ]
-                      
+
+
+  Integer pull_request_merged = 101
+  def transitionInput = [ transition: [ id: pull_request_merged ] ]
+
   try {
-        trans_issue = jiraTransitionIssue idOrKey: ddtl_ID , input: transitionInput, site: jiraSite
+       echo "jiraID   ${jiraID}"
+       echo "jiraSiteName  ${jiraSiteName}"
+       echo "newJiraState  ${newJiraState}"
+
+        trans_issue = jiraTransitionIssue idOrKey: jiraID , input: transitionInput, site: jiraSiteName
+
         echo "transiton response " + trans_issue.data.toString()
+        echo trans_issue
 
   } catch (err) {
-        error "Exception"
-        jiraAddComment idOrKey: ddtl_ID , site: jiraSite, comment: "${BUILD_URL} ERROR WHILE RELEASING ${error}"
-        currentBuild.result = 'FAILURE'
+        error "Script Error transitioning to ReadyToDeploy"
+
   } // END Catch
 
 } // END shared library
- 
